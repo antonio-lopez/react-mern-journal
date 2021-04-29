@@ -11,26 +11,50 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { GoogleLogin } from 'react-google-login';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { signin, signup } from '../../actions/auth';
 import Input from './Input';
 import Icon from './Icon';
 import dotenv from 'dotenv';
 import useStyles from './styles';
 
+const initialState = {
+  firstName: '',
+  lastName: '',
+  email: '',
+  password: '',
+  confirmPassword: '',
+};
+
 const Auth = () => {
   dotenv.config();
   const [showPassword, setShowPassword] = useState(false);
   const [isSignUp, setIsSignUp] = useState(false);
+  const [formData, setFormData] = useState(initialState);
   const classes = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const handleSubmit = () => {};
-  const handleChange = () => {};
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (isSignUp) {
+      dispatch(signup(formData, history));
+    } else {
+      dispatch(signin(formData, history));
+    }
+  };
+
+  const handleChange = (e) => {
+    // only update the target fields with their respective names
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
   const handleShowPassword = () =>
     setShowPassword((prevShowPassword) => !prevShowPassword);
+
   const switchMode = () => {
     setIsSignUp((prevIsSignUp) => !prevIsSignUp);
-    handleShowPassword(false);
+    setShowPassword(false);
   };
 
   const googleSuccess = async (res) => {
