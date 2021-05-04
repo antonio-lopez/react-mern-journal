@@ -10,10 +10,16 @@ export default makeStyles((theme) => ({
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: '10px 50px',
+    [theme.breakpoints.down('xs')]: {
+      flexDirection: 'column',
+    },
   },
   heading: {
     color: 'rgba(0,183,255, 1)',
     textDecoration: 'none',
+    [theme.breakpoints.down('xs')]: {
+      fontSize: '3rem',
+    },
   },
   image: {
     marginLeft: '15px',
@@ -22,6 +28,9 @@ export default makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'flex-end',
     width: '400px',
+    [theme.breakpoints.down('md')]: {
+      width: '250px',
+    },
   },
   profile: {
     display: 'flex',

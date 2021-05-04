@@ -7,7 +7,8 @@ import {
   Button,
   Typography,
 } from '@material-ui/core';
-import ThumpUpAltIcon from '@material-ui/icons/ThumbUpAlt';
+import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
+import ThumbUpAltOutlined from '@material-ui/icons/ThumbUpAltOutlined';
 import DeleteIcon from '@material-ui/icons/Delete';
 import MoreHorzIcon from '@material-ui/icons/MoreHoriz';
 import moment from 'moment';
@@ -18,6 +19,40 @@ import useStyles from './styles';
 const Post = ({ post, setCurrentId }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const user = JSON.parse(localStorage.getItem('profile')); // local user
+
+  const Likes = () => {
+    if (post.likes.length > 0) {
+      return post.likes.find(
+        // check to see if the current user's like was from their
+        // google ID or custom ID
+        (like) => like === (user?.result?.googleId || user?.result?._id)
+      ) ? (
+        <>
+          <ThumbUpAltIcon fontSize='small' />
+          &nbsp;
+          {post.likes.length > 2
+            ? // you and total number of people liked the post
+              `You and ${post.likes.length - 1} others`
+            : `${post.likes.length} like${post.likes.length > 1 ? 's' : ''}`}
+        </>
+      ) : (
+        // default number of like / likes if you haven't liked a post
+        <>
+          <ThumbUpAltOutlined fontSize='small' />
+          &nbsp;{post.likes.length} {post.likes.length === 1 ? 'Like' : 'Likes'}
+        </>
+      );
+    }
+
+    return (
+      // you are the first person to like a post
+      <>
+        <ThumbUpAltOutlined fontSize='small' />
+        &nbsp;Like
+      </>
+    );
+  };
 
   return (
     <Card className={classes.card}>
@@ -32,15 +67,18 @@ const Post = ({ post, setCurrentId }) => {
           {moment(post.createdAt).fromNow()}
         </Typography>
       </div>
-      <div className={classes.overlay2}>
-        <Button
-          style={{ color: 'white' }}
-          size='small'
-          onClick={() => setCurrentId(post._id)}
-        >
-          <MoreHorzIcon fontSize='default' />
-        </Button>
-      </div>
+      {(user?.result?.googleId === post?.creator ||
+        user?.result?._id === post?.creator) && (
+        <div className={classes.overlay2}>
+          <Button
+            style={{ color: 'white' }}
+            size='small'
+            onClick={() => setCurrentId(post._id)}
+          >
+            <MoreHorzIcon fontSize='default' />
+          </Button>
+        </div>
+      )}
       <div className={classes.details}>
         {/* <Typography variant='body2' color='textSecondary'> */}
         <Typography variant='body2' color='inherit'>
@@ -59,18 +97,22 @@ const Post = ({ post, setCurrentId }) => {
         <Button
           size='small'
           style={{ color: '#ccc' }}
+          disabled={!user?.result}
           onClick={() => dispatch(likePost(post._id))}
         >
-          <ThumpUpAltIcon fontSize='small' />
-          {post.likeCount}
+          <Likes />
         </Button>
-        <Button
-          size='small'
-          style={{ color: '#ccc' }}
-          onClick={() => dispatch(deletePost(post._id))}
-        >
-          <DeleteIcon fontSize='small' />
-        </Button>
+
+        {(user?.result?.googleId === post?.creator ||
+          user?.result?._id === post?.creator) && (
+          <Button
+            size='small'
+            style={{ color: '#ccc' }}
+            onClick={() => dispatch(deletePost(post._id))}
+          >
+            <DeleteIcon fontSize='small' />
+          </Button>
+        )}
       </CardActions>
     </Card>
   );
