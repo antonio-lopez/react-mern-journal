@@ -19,24 +19,20 @@ import Pagination from '../Pagination';
 import useStyles from './styles';
 
 // URL search params
-// function useQuery() {
-//   return new URLSearchParams(useLocation().search);
-// }
+function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
 
 const Home = () => {
   const [currentId, setCurrentId] = useState(null);
   const dispatch = useDispatch();
-  // const query = useQuery();
+  const query = useQuery();
   const history = useHistory();
-  // const page = query.get('page') || 1;
-  // const searchQuery = query.get('searchQuery');
+  const page = query.get('page') || 1;
+  const searchQuery = query.get('searchQuery');
   const classes = useStyles();
   const [search, setSearch] = useState('');
   const [tags, setTags] = useState([]);
-
-  useEffect(() => {
-    dispatch(getPosts());
-  }, [dispatch]);
 
   const searchPost = () => {
     if (search.trim() || tags) {
@@ -106,9 +102,11 @@ const Home = () => {
               </Button>
             </AppBar>
             <Form currentId={currentId} setCurrentId={setCurrentId} />
-            <Paper elevation={6}>
-              <Pagination />
-            </Paper>
+            {!searchQuery && !tags.length && (
+              <Paper elevation={6} className={classes.pagination}>
+                <Pagination page={page} />
+              </Paper>
+            )}
           </Grid>
           <Grid item xs={12} sm={6} md={9}>
             <Posts setCurrentId={setCurrentId} />
