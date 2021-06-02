@@ -22,6 +22,14 @@ const PostDetails = () => {
     dispatch(getPost(id));
   }, [id]);
 
+  useEffect(() => {
+    if (post) {
+      dispatch(
+        getPostsBySearch({ search: 'none', tags: post?.tags.join(',') })
+      );
+    }
+  }, [post]);
+
   if (!post) return null;
 
   if (isLoading) {
@@ -32,7 +40,7 @@ const PostDetails = () => {
     );
   }
 
-  // const recommendedPosts = posts.filter(({ _id }) => _id !== post._id);
+  const recommendedPosts = posts.filter(({ _id }) => _id !== post._id);
   const openPost = (_id) => history.push(`/posts/${_id}`);
 
   return (
@@ -58,14 +66,6 @@ const PostDetails = () => {
             {moment(post.createdAt).fromNow()}
           </Typography>
           <Divider style={{ margin: '20px 0' }} />
-          <Typography variant='body1'>
-            <strong>Realtime Chat - coming soon!</strong>
-          </Typography>
-          <Divider style={{ margin: '20px 0' }} />
-          <Typography variant='body1'>
-            <strong>Comments - coming soon!</strong>
-          </Typography>
-          <Divider style={{ margin: '20px 0' }} />
         </div>
         <div className={classes.imageSection}>
           <img
@@ -78,7 +78,7 @@ const PostDetails = () => {
           />
         </div>
       </div>
-      {/* {!!recommendedPosts.length && (
+      {recommendedPosts.length && (
         <div className={classes.section}>
           <Typography gutterBottom variant='h5'>
             You might also like:
@@ -86,7 +86,7 @@ const PostDetails = () => {
           <Divider />
           <div className={classes.recommendedPosts}>
             {recommendedPosts.map(
-              ({ title, name, message, likes, selectedFile, _id }) => (
+              ({ title, message, name, likes, selectedFile, _id }) => (
                 <div
                   style={{ margin: '20px', cursor: 'pointer' }}
                   onClick={() => openPost(_id)}
@@ -110,7 +110,7 @@ const PostDetails = () => {
             )}
           </div>
         </div>
-      )} */}
+      )}
     </Paper>
   );
 };
