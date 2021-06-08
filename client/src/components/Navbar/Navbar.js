@@ -30,7 +30,7 @@ const Navbar = () => {
     }
 
     setUser(JSON.parse(localStorage.getItem('profile')));
-  }, [location]);
+  }, [location, user?.token]);
 
   return (
     <AppBar className={classes.appBar} position='static' color='inherit'>
@@ -42,7 +42,7 @@ const Navbar = () => {
           variant='h2'
           align='center'
         >
-          Memories
+          Recollects
         </Typography>
         <img
           className={classes.image}

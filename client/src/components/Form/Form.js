@@ -90,7 +90,7 @@ const Form = ({ currentId, setCurrentId }) => {
         <TextField
           name='tags'
           variant='outlined'
-          label='Tags'
+          label='Tags (comma seperated)'
           fullWidth
           value={postData.tags}
           onChange={(e) =>

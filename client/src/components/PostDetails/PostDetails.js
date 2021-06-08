@@ -20,7 +20,7 @@ const PostDetails = () => {
 
   useEffect(() => {
     dispatch(getPost(id));
-  }, [id]);
+  }, [id, dispatch]);
 
   useEffect(() => {
     if (post) {
@@ -28,7 +28,7 @@ const PostDetails = () => {
         getPostsBySearch({ search: 'none', tags: post?.tags.join(',') })
       );
     }
-  }, [post]);
+  }, [post, dispatch]);
 
   if (!post) return null;
 
@@ -50,6 +50,25 @@ const PostDetails = () => {
           <Typography variant='h3' component='h2'>
             {post.title}
           </Typography>
+          <Typography variant='h6'>Created by: {post.name}</Typography>
+          <Typography variant='body1'>
+            {moment(post.createdAt).fromNow()}
+          </Typography>
+          <Divider style={{ margin: '20px 0' }} />
+          <Typography gutterBottom variant='body1' component='p'>
+            {post.message}
+          </Typography>
+          <Divider style={{ margin: '20px 0' }} />
+          <div className={classes.imageSection}>
+            <img
+              className={classes.media}
+              src={
+                post.selectedFile ||
+                'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'
+              }
+              alt={post.title}
+            />
+          </div>
           <Typography
             gutterBottom
             variant='h6'
@@ -58,27 +77,9 @@ const PostDetails = () => {
           >
             {post.tags.map((tag) => `#${tag} `)}
           </Typography>
-          <Typography gutterBottom variant='body1' component='p'>
-            {post.message}
-          </Typography>
-          <Typography variant='h6'>Created by: {post.name}</Typography>
-          <Typography variant='body1'>
-            {moment(post.createdAt).fromNow()}
-          </Typography>
-          <Divider style={{ margin: '20px 0' }} />
-        </div>
-        <div className={classes.imageSection}>
-          <img
-            className={classes.media}
-            src={
-              post.selectedFile ||
-              'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'
-            }
-            alt={post.title}
-          />
         </div>
       </div>
-      {recommendedPosts.length && (
+      {recommendedPosts.length > 0 && (
         <div className={classes.section}>
           <Typography gutterBottom variant='h5'>
             You might also like:
@@ -98,13 +99,17 @@ const PostDetails = () => {
                   <Typography gutterBottom variant='subtitle2'>
                     {name}
                   </Typography>
-                  <Typography gutterBottom variant='subtitle2'>
+                  {/* <Typography gutterBottom variant='subtitle2'>
                     {message}
-                  </Typography>
+                  </Typography> */}
                   <Typography gutterBottom variant='subtitle1'>
                     Likes: {likes.length}
                   </Typography>
-                  <img src={selectedFile} width='200px' />
+                  <img
+                    src={selectedFile}
+                    width='200px'
+                    alt='Recommended post'
+                  />
                 </div>
               )
             )}

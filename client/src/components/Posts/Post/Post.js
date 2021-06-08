@@ -98,7 +98,7 @@ const Post = ({ post, setCurrentId }) => {
         </Typography>
         <CardContent>
           <Typography variant='body2' color='inherit' component='p'>
-            {post.message}
+            {post.message.substring(0, 34)} ...
           </Typography>
         </CardContent>
       </ButtonBase>
