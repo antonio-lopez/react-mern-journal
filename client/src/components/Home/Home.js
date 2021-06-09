@@ -12,6 +12,7 @@ import { useDispatch } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 // ChipInput for tags searching
 import ChipInput from 'material-ui-chip-input';
+import Hidden from '@material-ui/core/Hidden';
 import { getPostsBySearch } from '../../actions/posts';
 import Posts from '../Posts/Posts';
 import Form from '../Form/Form';
@@ -52,7 +53,8 @@ const Home = () => {
   };
 
   const handleAdd = (tag) => {
-    setTags([...tags, tag]);
+    const lowerCaseTag = tag.toLowerCase();
+    setTags([...tags, lowerCaseTag]);
   };
 
   const handleDelete = (tagToDelete) => {
@@ -102,15 +104,24 @@ const Home = () => {
               </Button>
             </AppBar>
             <Form currentId={currentId} setCurrentId={setCurrentId} />
+            <Hidden xsDown>
+              {!searchQuery && !tags.length && (
+                <Paper elevation={6} className={classes.pagination}>
+                  <Pagination page={page} />
+                </Paper>
+              )}
+            </Hidden>
+          </Grid>
+          <Grid item xs={12} sm={6} md={9}>
+            <Posts setCurrentId={setCurrentId} />
+          </Grid>
+          <Hidden smUp>
             {!searchQuery && !tags.length && (
               <Paper elevation={6} className={classes.pagination}>
                 <Pagination page={page} />
               </Paper>
             )}
-          </Grid>
-          <Grid item xs={12} sm={6} md={9}>
-            <Posts setCurrentId={setCurrentId} />
-          </Grid>
+          </Hidden>
         </Grid>
       </Container>
     </Grow>

@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-const API = axios.create({ baseURL: 'http://localhost:5000' });
-// const API = axios.create({
-//   baseURL: 'https://react-mern-journal.herokuapp.com',
-// });
+// const API = axios.create({ baseURL: 'http://localhost:5000' });
+const API = axios.create({
+  baseURL: 'https://react-journal-backend.herokuapp.com/',
+});
 
 API.interceptors.request.use((req) => {
   if (localStorage.getItem('profile')) {

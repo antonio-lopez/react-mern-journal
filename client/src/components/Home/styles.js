@@ -11,10 +11,9 @@ export default makeStyles((theme) => ({
     borderRadius: 4,
     marginTop: '1rem',
     padding: '16px',
-  },
-  gridContainer: {
     [theme.breakpoints.down('xs')]: {
-      flexDirection: 'column-reverse',
+      margin: 'auto',
+      padding: '1rem 4rem',
     },
   },
 }));
