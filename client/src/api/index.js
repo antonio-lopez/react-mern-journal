@@ -1,9 +1,9 @@
 import axios from 'axios';
+import dotenv from 'dotenv';
+dotenv.config();
 
-// const API = axios.create({ baseURL: 'http://localhost:5000' });
-const API = axios.create({
-  baseURL: 'https://react-journal-backend.herokuapp.com/',
-});
+const url = process.env.REACT_DEPLOYED_URL || 'http://localhost:5000';
+const API = axios.create({ baseURL: url });
 
 API.interceptors.request.use((req) => {
   if (localStorage.getItem('profile')) {
