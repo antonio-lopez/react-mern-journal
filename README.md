@@ -2,7 +2,7 @@
 <p>
 </p>
 
-> A full stack MERN (MongoDB, Express, React, Node.js) application where users can sign-up, login, and share journal entries with others. They are provided recommended posts based on journal tags. Users is athenticated by using JSON Web Tokens and Google OAuth.
+> A full stack MERN (MongoDB, Express, React, Node.js) application where users can sign-up, login, and share journal entries with others. They are recommended posts based on other user's journal tags. JSON Web Tokens and Google OAuth are used for authentication.
 
 ### 🏠 [Homepage](https://github.com/antonio-lopez/react-mern-journal)
 
