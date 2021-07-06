@@ -4,7 +4,9 @@
 
 > A full stack MERN (MongoDB, Express, React, Node.js) application where users can sign-up, login, and share journal entries with others. Posts are recommended based on other journal entries with similar tags. JSON Web Tokens and Google OAuth are used for authentication.
 
-### 🏠 [Homepage](https://github.com/antonio-lopez/react-mern-journal)
+### 🏠 [Homepage](https://recollects.netlify.app)
+
+![screenshot](https://raw.githubusercontent.com/antonio-lopez/react-mern-journal/main/recollects_example.gif?token=AIWOL5ZM72XSMRGYDNHJYZ3A5TTK6)
 
 ## Prerequisites
 
