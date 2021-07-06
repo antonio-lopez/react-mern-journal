@@ -16,6 +16,19 @@ Before you begin, ensure you have met the following requirements:
 - You will need to create a MongoDB database. This project uses a Cloud Atlas cluster. Create one [here](https://www.mongodb.com/cloud/atlas)
 - You will need a Client ID to use Google OAuth. Create a new project in the [Google Cloud Platform](https://console.developers.google.com/). Select the OAuth Consent Screen and create one. Go to the Credentials tab and select Create Credentials and select OAuth Client ID. Add Authorized JavaScript origins URIs and Authorized redirect URIs. You will receive a Client ID after completion.
 
+## Features
+
+- Page pagination
+- Google sign In
+- New user sign up
+- Create and delete posts
+- Add images to posts
+- Like other user's posts
+- Material UI and styled components
+- Redux, Redux Thunk, React Router for navigation and dispatching API calls
+- Express and Mongoose for server response and request
+- Moment for post time tracking
+
 ## Install
 
 Clone respository: `https://github.com/antonio-lopez/react-mern-journal.git`
