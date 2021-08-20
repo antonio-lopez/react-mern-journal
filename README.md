@@ -6,7 +6,7 @@
 
 ### 🏠 [Homepage](https://recollects.netlify.app)
 
-![](https://raw.githubusercontent.com/antonio-lopez/react-mern-journal/main/uploads/recollects-screenshot.png?token=AIWOL52Z6LBT7EHLNT3ZDHTA7R4VQ)
+![](/uploads/recollects-screenshot.png?raw=true)
 
 ## Prerequisites
 
